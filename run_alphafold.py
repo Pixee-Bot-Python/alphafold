@@ -18,7 +18,6 @@ import json
 import os
 import pathlib
 import pickle
-import random
 import shutil
 import sys
 import time
@@ -41,6 +40,7 @@ from alphafold.model import model
 from alphafold.relax import relax
 import jax.numpy as jnp
 import numpy as np
+import secrets
 
 # Internal import (7716).
 
@@ -534,7 +534,7 @@ def main(argv):
 
   random_seed = FLAGS.random_seed
   if random_seed is None:
-    random_seed = random.randrange(sys.maxsize // len(model_runners))
+    random_seed = secrets.SystemRandom().randrange(sys.maxsize // len(model_runners))
   logging.info('Using random seed %d for the data pipeline', random_seed)
 
   # Predict structure for each of the sequences.
