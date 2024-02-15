@@ -21,6 +21,8 @@ from typing import Any, List, Mapping, Optional, Sequence
 
 from absl import logging
 from alphafold.data.tools import utils
+from security import safe_command
+
 # Internal import (7716).
 
 
@@ -126,8 +128,7 @@ class HHBlits:
       cmd += db_cmd
 
       logging.info('Launching subprocess "%s"', ' '.join(cmd))
-      process = subprocess.Popen(
-          cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      process = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
       with utils.timing('HHblits query'):
         stdout, stderr = process.communicate()

@@ -25,6 +25,8 @@ from absl import logging
 
 from alphafold.data import parsers
 from alphafold.data.tools import utils
+from security import safe_command
+
 # Internal import (7716).
 
 
@@ -131,8 +133,7 @@ class Jackhmmer:
                                               database_path]
 
       logging.info('Launching subprocess "%s"', ' '.join(cmd))
-      process = subprocess.Popen(
-          cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      process = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       with utils.timing(
           f'Jackhmmer ({os.path.basename(database_path)}) query'):
         _, stderr = process.communicate()

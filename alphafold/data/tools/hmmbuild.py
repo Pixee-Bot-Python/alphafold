@@ -20,6 +20,8 @@ import subprocess
 
 from absl import logging
 from alphafold.data.tools import utils
+from security import safe_command
+
 # Internal import (7716).
 
 
@@ -119,7 +121,7 @@ class Hmmbuild(object):
       ])
 
       logging.info('Launching subprocess %s', cmd)
-      process = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+      process = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
 
       with utils.timing('hmmbuild query'):

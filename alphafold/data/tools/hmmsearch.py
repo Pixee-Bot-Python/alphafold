@@ -22,6 +22,8 @@ from absl import logging
 from alphafold.data import parsers
 from alphafold.data.tools import hmmbuild
 from alphafold.data.tools import utils
+from security import safe_command
+
 # Internal import (7716).
 
 
@@ -101,8 +103,7 @@ class Hmmsearch(object):
       ])
 
       logging.info('Launching sub-process %s', cmd)
-      process = subprocess.Popen(
-          cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      process = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       with utils.timing(
           f'hmmsearch ({os.path.basename(self.database_path)}) query'):
         stdout, stderr = process.communicate()
