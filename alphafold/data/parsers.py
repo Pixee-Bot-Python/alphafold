@@ -595,7 +595,7 @@ def parse_hmmsearch_a3m(query_sequence: str,
       continue  # Skip non-protein chains.
     metadata = _parse_hmmsearch_description(hit_description)
     # Aligned columns are only the match states.
-    aligned_cols = sum([r.isupper() and r != '-' for r in hit_sequence])
+    aligned_cols = sum(r.isupper() and r != '-' for r in hit_sequence)
     indices_hit = _get_indices(hit_sequence, start=metadata.start - 1)
 
     hit = TemplateHit(

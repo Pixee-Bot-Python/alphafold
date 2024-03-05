@@ -133,7 +133,7 @@ def mmcif_loop_to_list(prefix: str,
       cols.append(key)
       data.append(value)
 
-  assert all([len(xs) == len(data[0]) for xs in data]), (
+  assert all(len(xs) == len(data[0]) for xs in data), (
       'mmCIF error: Not all loops are the same length: %s' % cols)
 
   return [dict(zip(cols, xs)) for xs in zip(*data)]
@@ -202,7 +202,7 @@ def parse(*,
     if not valid_chains:
       return ParsingResult(
           None, {(file_id, ''): 'No protein chains found in this file.'})
-    seq_start_num = {chain_id: min([monomer.num for monomer in seq])
+    seq_start_num = {chain_id: min(monomer.num for monomer in seq)
                      for chain_id, seq in valid_chains.items()}
 
     # Loop over the atoms for which we have coordinates. Populate two mappings:
@@ -374,8 +374,8 @@ def _get_protein_chains(
     chain_ids = entity_to_mmcif_chains[entity_id]
 
     # Reject polymers without any peptide-like components, such as DNA/RNA.
-    if any(['peptide' in chem_comps[monomer.id]['_chem_comp.type'].lower()
-            for monomer in seq_info]):
+    if any('peptide' in chem_comps[monomer.id]['_chem_comp.type'].lower()
+            for monomer in seq_info):
       for chain_id in chain_ids:
         valid_chains[chain_id] = seq_info
   return valid_chains
