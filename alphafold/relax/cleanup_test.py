@@ -92,7 +92,7 @@ class CleanupTest(absltest.TestCase):
     structure = _pdb_to_structure(result)
     self.assertCountEqual([res.get_name() for res in structure.iter_residues()],
                           ['GLY'])
-    self.assertEqual(alterations['removed_heterogens'], set(['HOH']))
+    self.assertEqual(alterations['removed_heterogens'], {'HOH'})
 
   def test_fix_nonstandard_residues(self):
     pdb_lines = ['SEQRES   1 A    1  DAL',
