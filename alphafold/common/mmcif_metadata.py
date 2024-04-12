@@ -79,8 +79,7 @@ def add_metadata_to_mmcif(
   cif['_audit_conform.dict_name'] = ['mmcif_ma.dic']
   cif['_audit_conform.dict_version'] = ['1.3.9']
   cif['_audit_conform.dict_location'] = [
-      'https://raw.githubusercontent.com/ihmwg/ModelCIF/master/dist/'
-      'mmcif_ma.dic'
+      'https://raw.githubusercontent.com/ihmwg/ModelCIF/master/dist/', 'mmcif_ma.dic'
   ]
 
   # License and disclaimer.
